@@ -232,6 +232,7 @@ public class DefaultDockerClient implements DockerClient, Closeable {
         .build();
   }
 
+  @Override
   public String getHost() {
     return fromNullable(uri.getHost()).or("localhost");
   }
