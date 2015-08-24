@@ -39,6 +39,7 @@ final HostConfig hostConfig = HostConfig.builder().portBindings(portBindings).bu
 final ContainerConfig containerConfig = ContainerConfig.builder()
     .image("busybox").exposedPorts(ports)
     .cmd("sh", "-c", "while :; do sleep 1; done")
+    .hostConfig(hostConfig)
     .build();
 
 final ContainerCreation creation = docker.createContainer(containerConfig);
@@ -48,7 +49,7 @@ final String id = creation.id();
 final ContainerInfo info = docker.inspectContainer(id);
 
 // Start container
-docker.startContainer(id, hostConfig);
+docker.startContainer(id);
 
 // Exec command inside running container with attached STDOUT and STDERR
 final String[] command = {"bash", "-c", "ls"};
